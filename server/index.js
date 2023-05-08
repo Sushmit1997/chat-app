@@ -7,6 +7,9 @@ import bodyParser from "body-parser";
 
 // routes
 import AuthRoute from './routes/AuthRoute.js'
+import ChatRoute from './routes/ChatRoute.js'
+import MessageRoute from './routes/MessageRoute.js'
+import UserRoute from './routes/UserRoute.js'
 
 
 const app = express();
@@ -31,4 +34,8 @@ app.listen(PORT, () => {
     console.log(`Server up at ${PORT}`)
   });
 
+
 app.use('/auth', AuthRoute);
+app.use('/user', UserRoute);
+app.use('/chat', ChatRoute);
+app.use('/message', MessageRoute);
