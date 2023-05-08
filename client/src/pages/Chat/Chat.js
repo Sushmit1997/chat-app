@@ -3,14 +3,26 @@ import "./Chat.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userChats } from "../../api/ChatRequests";
-import Conversation from "../../components/Conversation.js";
+import Conversation from "../../components/Conversation/Conversation.js";
+import Chatbox from "../../components/ChatBox/ChatBox";
+import { logout } from "../../actions/AuthActions.js";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
 
+  const navigate = useNavigate();
+
   const [chats, setChats] = useState([]);
-  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [sendMessage, setSendMessage] = useState(null);
+  const [receivedMessage, setReceivedMessage] = useState(null);
+
+
+  const handleLogout = () => {
+    dispatch(logout(navigate))
+  }
 
  // Get the chat in chat section
  useEffect(() => {
@@ -33,10 +45,13 @@ const Chat = () => {
     <div className="Chat">
       <div className="Left-side-chat">
         <div className="Chat-container">
-          <h2>Your Chats</h2>
+          <div className="Chat-header"><h2>Your Chats  </h2> <button className="button" onClick={handleLogout}>Log Out</button></div>
           <div className="Chat-list">
             {chats.map((chat) => (
-              <div
+              <div 
+              onClick={() => {
+                setCurrentChat(chat);
+              }}
             >
               <Conversation
                 data={chat}
@@ -46,6 +61,14 @@ const Chat = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="Right-side-chat">
+        <Chatbox
+          chat={currentChat}
+          currentUser={user._id}
+          setSendMessage={setSendMessage}
+          receivedMessage={receivedMessage}
+        />
       </div>
 
     </div>

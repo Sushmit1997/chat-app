@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getUser } from "../api/UserRequests.js";
+import { getUser } from "../../api/UserRequests.js";
 import Avatar from 'react-avatar';
 
 
@@ -17,7 +17,6 @@ const Conversation = ({ data, currentUser }) => {
       try
       {
           const {data} =  await getUser(userId)
-          console.log('user', data)
          setUserData(data)
       }
       catch(error)

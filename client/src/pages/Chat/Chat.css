@@ -48,6 +48,16 @@
     position: relative;
   }
   
+
+  .Chat-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .Chat-header span{
+    cursor: pointer;
+  }
   
   .chatbox-empty-message {
     display: flex;
