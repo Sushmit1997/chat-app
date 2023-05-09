@@ -15,6 +15,13 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
     setNewMessage(text)
   }
 
+
+  useEffect(() => {
+    if(receivedMessage !== null && receivedMessage.chatId === chat._id){
+      setMessages([...messages, receivedMessage])
+    }
+  }, [receivedMessage])
+
   useEffect(() => {
     const userId = chat?.members?.find((id) => id !== currentUser);
     const getUserData = async () => {
@@ -50,8 +57,11 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
       text: newMessage,
       chatId: chat._id,
   }
+
+
   const receiverId = chat.members.find((id)=>id!==currentUser);
   setSendMessage({...message, receiverId})
+
   try {
     const { data } = await addMessage(message);
     setMessages([...messages, data]);
@@ -61,6 +71,9 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
   {
     console.log("error")
   }
+
+
+
 }
 
 // Receive Message from parent component

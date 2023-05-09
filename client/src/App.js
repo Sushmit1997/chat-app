@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth/Auth";
 import Chat from "./pages/Chat/Chat";
 import { useSelector } from "react-redux";
+import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
@@ -10,6 +11,7 @@ function App() {
     <div
       className="App"
     >
+      <ToastProvider autoDismiss={true}>
       <Routes>
         <Route
           path="/"
@@ -34,6 +36,7 @@ function App() {
           }
         />
       </Routes>
+      </ToastProvider>
     </div>
   );
 }

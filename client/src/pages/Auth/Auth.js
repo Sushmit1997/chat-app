@@ -3,10 +3,11 @@ import "./Auth.css";
 import { logIn, signUp } from "../../actions/AuthActions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useToasts } from 'react-toast-notifications';
 
 const Auth = () => {
   const initialState = {
-    firstname: "",
+    firstName: "",
     username: "",
     password: "",
     confirmpass: "",
@@ -14,6 +15,8 @@ const Auth = () => {
   const loading = useSelector((state) => state.authReducer.loading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
+
   const [isSignUp, setIsSignUp] = useState(false);
 
   const [data, setData] = useState(initialState);
@@ -37,10 +40,10 @@ const Auth = () => {
     e.preventDefault();
     if (isSignUp) {
       data.password === data.confirmpass
-        ? dispatch(signUp(data, navigate))
+        ? dispatch(signUp(data, navigate, addToast))
         : setConfirmPass(false);
     } else {
-      dispatch(logIn(data, navigate));
+      dispatch(logIn(data, navigate, addToast));
     }
   };
 
@@ -56,7 +59,7 @@ const Auth = () => {
                 type="text"
                 placeholder="First Name"
                 className="infoInput"
-                name="firstname"
+                name="firstName"
                 value={data.firstname}
                 onChange={handleChange}
               />
