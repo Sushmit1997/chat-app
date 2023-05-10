@@ -63,7 +63,6 @@ const Chat = () => {
     const getAllUserData = async () => {
         try {
             const { data } = await getAllUser()
-            console.log(data)
             setUsers(data)
         } catch (error) {
             console.log(error)
@@ -84,7 +83,6 @@ const Chat = () => {
         try {
             const { data } = await userChats(user._id)
             setChats(data)
-            console.log(data)
         } catch (error) {
             console.log(error)
         }
